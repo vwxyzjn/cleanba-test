@@ -322,7 +322,6 @@ def rollout(
             env_send_time += time.time() - env_send_time_start
             storage_time_start = time.time()
 
-            # info["TimeLimit.truncated"] has a bug https://github.com/sail-sg/envpool/issues/239
             # so we use our own truncated flag
             truncated = info["elapsed_step"] >= envs.spec.config.max_episode_steps
             storage.append(

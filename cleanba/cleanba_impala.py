@@ -139,8 +139,6 @@ def make_env(env_id, seed, num_envs):
 
 
 ### RMSProp implementation for PyTorch-style RMSProp
-# see https://github.com/deepmind/optax/issues/532#issuecomment-1676371843
-# fmt: off
 import jax
 import jax.numpy as jnp
 from optax import update_moment_per_elem_norm
@@ -154,7 +152,6 @@ def scale_by_rms_pytorch_style(
     eps: float = 1e-8,
     initial_scale: float = 0.
 ) -> base.GradientTransformation:
-  """See https://github.com/deepmind/optax/issues/532#issuecomment-1676371843"""
 
   def init_fn(params):
     nu = jax.tree_util.tree_map(
@@ -365,7 +362,6 @@ def rollout(
             env_send_time += time.time() - env_send_time_start
             storage_time_start = time.time()
 
-            # info["TimeLimit.truncated"] has a bug https://github.com/sail-sg/envpool/issues/239
             # so we use our own truncated flag
             truncated = info["elapsed_step"] >= envs.spec.config.max_episode_steps
             storage.append(
